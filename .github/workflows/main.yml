@@ -28,4 +28,6 @@ jobs:
           template_color: green
           enable_image: true
         env:
-          LARK_WEBHOOK: ${{ secrets.LARK_WEBHOOK }}
+          NOTIFY_WEBHOOK: ${{ secrets.LARK_WEBHOOK }}
+
+          
