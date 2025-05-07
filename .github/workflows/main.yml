@@ -18,10 +18,6 @@ jobs:
             -d '{
               "msg_type": "text",
               "content": {
-                "text": "            🚀 代码已更新\n
-            📦 仓库: ${{ github.repository }}\n
-            👤 提交者: ${{ github.actor }}\n
-            📝 提交信息: ${{ github.event.head_commit.message }}\n
-            🔗 查看详情: ${{ github.event.head_commit.url }}"
+                "text": "🚀 代码已更新\n📦仓库: ${{ github.repository }}\n👤提交者: ${{ github.actor }}\n📝提交信息: ${{ github.event.head_commit.message }}\n🔗查看详情: ${{ github.event.head_commit.url }}"
               }
             }'
