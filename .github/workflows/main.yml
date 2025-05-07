@@ -3,31 +3,21 @@ name: Lark Notification
 on:
   push:
     branches:
-      - main  # 或者你的默认分支名称
-    paths-ignore:
-      - '**.md'  # 可选：忽略 markdown 文件的更改
+      - main
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Lark Notifier
-        uses: leonardoli2022/actions.notify@v0.2.4
-        with:
-          plat_type: lark
-          notify_title: "代码更新通知"
-          notify_message: |
-            🚀 代码已更新
-            📦 仓库: ${{ github.repository }}
-            👤 提交者: ${{ github.actor }}
-            📝 提交信息: ${{ github.event.head_commit.message }}
-            🔗 查看详情: ${{ github.event.head_commit.url }}
-          template_color: green
-          enable_image: true
+      - name: Send Lark Notification
         env:
-          NOTIFY_WEBHOOK: ${{ secrets.LARK_WEBHOOK }}
-
-          
+          LARK_WEBHOOK: ${{ secrets.LARK_WEBHOOK }}
+        run: |
+          curl -X POST "$LARK_WEBHOOK" \
+            -H 'Content-Type: application/json' \
+            -d '{
+              "msg_type": "text",
+              "content": {
+                "text": "🚀 代码已更新\n仓库: ${{ github.repository }}\n提交者: ${{ github.actor }}\n提交信息: ${{ github.event.head_commit.message }}\n详情: ${{ github.event.head_commit.url }}"
+              }
+            }'
